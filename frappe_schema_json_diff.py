@@ -14,9 +14,7 @@ from rich.table import Table
 @dataclass
 class FrappeDiff:
     old_path: str
-    old_hex: str
     new_path: str
-    new_hex: str
     print_table: int
 
     def prep(self) -> None:
@@ -355,11 +353,11 @@ if __name__ == "__main__":
     table_mode = int(os.getenv('TABLE_MODE'))
 
     try:
-        if sys.argv[2].split('.')[-1] == 'json' or sys.argv[5].split('.')[-1] == 'json':
-            if sys.argv[6] == '.':
-                console.log(f"[bold][red]Removed: {sys.argv[2].split('/')[-1]}[/red][/bold]")
+        if old_path.split('.')[-1] == 'json' or new_path.split('.')[-1] == 'json':
+            if new_hex == '.':
+                console.log(f"[bold][red]Removed: {old_path.split('/')[-1]}[/red][/bold]")
             else:
-                diff = FrappeDiff(old_path, old_hex, new_path, new_hex, table_mode)
+                diff = FrappeDiff(old_path, new_path, table_mode)
                 diff.prep()
                 diff.print()
     except Exception as e:
