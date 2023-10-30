@@ -1,7 +1,7 @@
 # Frappe Schema JSON Diff 
 
 ## Usage
-When building and customizing Frappe Doctypes (schema), tracking changes can be challenging. Relying on the current state of the UI doesn't show past changes, and git's diff does not reflect the functional change, only the line-by-line diff of the json file. This script and workflow displays a meaningful diff of the newest changes on pull requests and pushes in a runner terminal, and in the case of PRs, comments on the request.
+When building and customizing Frappe Doctypes (schema), tracking changes can be challenging. Relying on the current state of the UI doesn't show past changes, and git's diff does not reflect the functional change, only the line-by-line diff of the json file. This script can be used as a standalone CLI tool or as part of a github action or CI workflow to produce a meaningful diff of schema changes. It uses Git's internal file manipulation via GIT_EXTERNAL_DIFF and displays output relevant to frappe applications.
 
 ### CLI Usage
 Add the following to ~/.bashrc to use the mechanics of `git diff` while outputting the result of fsjd.
@@ -20,6 +20,9 @@ fdiff() {
 For example, `fdiff HEAD HEAD~1` is equivalent to running `git --no-pager diff HEAD HEAD~1` with the GIT_EXTERNAL_DIFF environment variable set, and `git diff` will work normally afterward.
 
 ### CI Implementation
+The diff output will appear in a runner terminal for pull requests and pushes, and in the case of pull requests, a comment on the PR will also appear.
+
+
 Copy the file `.github/workflows/main.yaml` along with its parent directories into the root folder of a custom app. Change the branch on lines 4 and 6 if applicable. Keep the `1` on line 24 to print table diffs or change it to `0` for trees.
 
 ## Output
