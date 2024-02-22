@@ -1,6 +1,8 @@
-<h1 align="center"> Schema Diff: Revolutionize Empress Schema Development</h1>
+
 <p align="center">
   <img src="https://grow.empress.eco/uploads/default/original/2X/1/1f1e1044d3864269d2a613577edb9763890422ab.png" alt="Schema Diff Logo" />
+
+  <h1 align="center"> Schema Diff: Revolutionize Empress Schema Development</h1>
 </p>
 
 <p align="center">
