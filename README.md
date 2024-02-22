@@ -1,48 +1,77 @@
-# Frappe Schema JSON Diff 
+<h1 align="center"> Schema Diff: Revolutionize Empress Schema Development</h1>
+<p align="center">
+  <img src="https://grow.empress.eco/uploads/default/original/2X/1/1f1e1044d3864269d2a613577edb9763890422ab.png" alt="Schema Diff Logo" />
+</p>
 
-## Usage
-When building and customizing Frappe Doctypes (schema), tracking changes can be challenging. Relying on the current state of the UI doesn't show past changes, and git's diff does not reflect the functional change, only the line-by-line diff of the json file. This script can be used as a standalone CLI tool or as part of a github action or CI workflow to produce a meaningful diff of schema changes. It uses Git's internal file manipulation via GIT_EXTERNAL_DIFF and displays output relevant to frappe applications.
+<p align="center">
+Your development lifeline for tracking and visualizing Empress schema changes with ease and precision.
+<br />
+<a href="https://empress.eco/"><strong>Explore the Docs »</strong></a>
+<br />
+<br />
+<a href="https://github.com/empress-eco/schema_diff/issues">Report Bug</a>
+·
+<a href="https://github.com/empress-eco/schema_diff/issues">Request Feature</a>
+</p>
 
-### CLI Usage
-Add the following to ~/.bashrc to use the mechanics of `git diff` while outputting the result of fsjd.
+## About Schema Diff
 
-```
+### 📖 Overview
+Schema Diff is a transformative tool specially crafted for developers maneuvering through Empress Doctypes (schema). It revolutionizes the way you track and visualize changes in your schema, replacing traditional cumbersome methods with a streamlined, efficient process. Use Schema Diff as a standalone CLI tool, or seamlessly incorporate it into your Github action or CI workflow to generate a comprehensive diff of schema changes.
+
+### 🌟 Key Features
+- Generates a meaningful diff of schema changes, enhancing visibility and understanding of changes.
+- Designed for flexible use - as a standalone CLI tool or integrated into Github action or CI workflow.
+- Contains a unique feature to account for the deletion or reordering of elements in a list of dictionaries.
+
+### 🎯 Target Audience
+Ideal for developers working with Empress Doctypes who need to track schema changes effectively and efficiently.
+
+### 🛠 Built With
+Schema Diff leverages the power of the following major libraries:
+- [json-source-map](https://pypi.org/project/json-source-map/) for fetching line numbers for diffed data.
+- [Rich](https://pypi.org/project/rich/) for Python output formatting.
+
+## Technical Stack and Setup Instructions
+
+### Prerequisites
+Make sure you have a Python version installed that's compatible with the libraries above.
+
+### Installation
+To get started with Schema Diff, clone the repo using this [link](https://github.com/empress-eco/schema_diff.git) and follow these steps:
+
+```sh
+# Add this to ~/.bashrc to use Schema Diff with the mechanics of `git diff`
 fdiff() {
     (
         export TABLE_MODE=1
-        export GIT_EXTERNAL_DIFF=~/fsjd/frappe_schema_json_diff.py
+        export GIT_EXTERNAL_DIFF=~/fsjd/Empress_schema_json_diff.py
         git --no-pager diff "$@"
         unset GIT_EXTERNAL_DIFF
     )
 }
 ```
 
-For example, `fdiff HEAD HEAD~1` is equivalent to running `git --no-pager diff HEAD HEAD~1` with the GIT_EXTERNAL_DIFF environment variable set, and `git diff` will work normally afterward.
+## Usage
+To demonstrate Schema Diff in action, use `fdiff HEAD HEAD~1` - this is equivalent to running `git --no-pager diff HEAD HEAD~1` with the GIT_EXTERNAL_DIFF environment variable set. After using `fdiff`, `git diff` will work normally.
 
-### CI Implementation
-The diff output will appear in a runner terminal for pull requests and pushes, and in the case of pull requests, a comment on the PR will also appear.
+## Contribution Guidelines
+We welcome and appreciate contributions! Here's how you can contribute to Schema Diff:
 
+1. Fork the Project using this [link](https://github.com/empress-eco/schema_diff.git)
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Copy the file `.github/workflows/main.yaml` along with its parent directories into the root folder of a custom app. Change the branch on lines 4 and 6 if applicable. Keep the `1` on line 24 to print table diffs or change it to `0` for trees.
+## License and Acknowledgements
 
-## Output
-Runner terminals will show JSON file names and diff content for any modified files, and names of deleted files. If any schema changes (changed JSON) are present, the workflow will fail.  
-### CI Terminal
-[example](https://github.com/robproject/fsjd/runs/8027932932?check_suite_focus=true#step:8:5)  
-### Table
-![asdf](assets/11.png)
-### Tree
-![](assets/0.png)
-## Design
-### Dependencies
-| Name                | Purpose                               | Links                                                                                                            |
-| ------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **json-source-map** | Fetching line numbers for diffed data | [PyPI](https://pypi.org/project/json-source-map/) [GitHub](https://github.com/open-alchemy/json-source-map/wiki) |
-| **Rich**            | Python output formatting              | [PyPI](https://pypi.org/project/rich/)             [GitHub](https://github.com/Textualize/rich)                  |
+### License
+This project is under the MIT License. Your contributions are also licensed under the MIT License.
 
-### Local Testing
-1. Change or delete any json files located in `/test_files`
-2. `bash ./run.sh`
+### Acknowledgements
+Special thanks to the Empress Community, the architects behind the essential tools that power this project. Their innovation and dedication have been instrumental in building the foundations and functionalities we rely on. We are profoundly grateful for their pioneering work and ongoing support.
 
-### Function
-A specific situation this tool is designed to account for is the deletion or reordering of elements in a list of dictionaries. If docfields (dictionaries) are added, deleted, or have their order changed, tools like DeepDiff will compare elements of the same index. FSJD will compare members of dictionary lists with matching common-key values. For example, docfields share the common-key 'field_name', so if two lists to be diffed contain dictionaries with this common-key, and their values match, those two dictionaries will be compared regardless of index. The tradeoff to this approach is that renaming a docfield (changing only the value of a common-key) will show a deleted and added docfield instead of a renamed value.
+Also, profound gratitude to [json-source-map](https://pypi.org/project/json-source-map/) and [Rich](https://pypi.org/project/rich/) for providing essential functions to this tool.
+
+For the latest updates, visit our [Github Page](https://github.com/empress-eco/).
